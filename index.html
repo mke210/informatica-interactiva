@@ -861,7 +861,169 @@ body.ordenando, body.ordenando *{cursor:grabbing !important; user-select:none !i
 .confeti{position:fixed; top:-50px; z-index:500; pointer-events:none; animation:cae linear forwards}
 @keyframes cae{to{transform:translateY(110vh) rotate(540deg)}}
 
+/* ===== Simulador de Windows 11 ===== */
+.w11-lab{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:16px; align-items:start}
+@media (max-width:1000px){ .w11-lab{grid-template-columns:minmax(0,1fr)} }
+.w11-list li{gap:4px}
+.w11-list .w11-demo{justify-self:start; margin-top:4px; padding:5px 11px; font-size:12.5px}
+.w11-list .w11-demo svg{width:13px; height:13px; fill:currentColor; stroke:none}
+.w11-col{display:grid; gap:10px; min-width:0; position:sticky; top:12px}
+@media (max-width:1000px){ .w11-col{position:static; order:-1} }
+.w11-cap{padding:10px 14px; border-radius:12px; background:var(--surface-2); border:1px solid var(--line); font-size:14.5px; min-height:44px}
+.w11-cap.on{border-color:var(--accent); background:color-mix(in srgb, var(--accent) 10%, var(--surface))}
+.w11-dev{position:relative; display:grid; gap:10px}
+.w11-mon{background:#1B1F25; border-radius:16px; padding:10px; box-shadow:0 20px 40px -24px rgba(0,0,0,.5)}
+.w11{position:relative; height:clamp(400px, 52vw, 540px); overflow:hidden; border-radius:6px; background:linear-gradient(135deg,#BFD9FF 0%,#6FA3F2 45%,#2453C2 100%); font:12.5px/1.35 "Segoe UI", var(--font-body); color:#1B2433; user-select:none; -webkit-user-select:none; isolation:isolate}
+.w11 button{font:inherit; color:inherit}
+.w11 svg{display:block}
+.w11-under{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+.w11-pwr, .w11-usbbtn{appearance:none; display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:6px 14px 6px 6px; font-weight:700; font-size:13.5px; color:var(--ink); cursor:pointer}
+.w11-pwr:hover, .w11-usbbtn:hover{border-color:var(--accent)}
+.w11-pwr svg{width:30px; height:30px; padding:6px; border-radius:50%; background:#1B1F25; fill:none; stroke:#39D98A; stroke-width:2.6; stroke-linecap:round}
+.w11-port{position:relative; width:64px; height:30px; border-radius:8px; background:#2A3038; overflow:hidden}
+.w11-port::after{content:""; position:absolute; right:6px; top:9px; width:14px; height:12px; border-radius:2px; background:#0E1013; border:2px solid #8A94A1}
+.w11-port i{position:absolute; top:7px; left:-4px; width:34px; height:16px; border-radius:4px; background:linear-gradient(#6B7A90,#3B4452); transition:transform .5s cubic-bezier(.3,1.3,.5,1)}
+.w11-port i::after{content:""; position:absolute; right:-9px; top:3px; width:10px; height:10px; background:#C9D1DC; border-radius:1px}
+.w11-usbbtn.in .w11-port i{transform:translateX(17px)}
+.w11-cur{position:absolute; z-index:60; width:26px; height:26px; margin:-3px 0 0 -4px; transition:left .75s cubic-bezier(.4,.1,.2,1), top .75s cubic-bezier(.4,.1,.2,1); pointer-events:none; filter:drop-shadow(0 2px 3px rgba(0,0,0,.45))}
+.w11-cur i{position:absolute; left:-12px; top:-12px; width:28px; height:28px; border-radius:50%; border:3px solid #FFD43B; opacity:0}
+.w11-cur.clic i{animation:clicring .5s ease-out}
+@keyframes clicring{0%{transform:scale(.3); opacity:1} 100%{transform:scale(1.6); opacity:0}}
+.w11-block{position:absolute; inset:0; z-index:55; cursor:not-allowed}
+.w11-ok{color:var(--ok); font-weight:800}
+/* escritorio */
+.w11-desk{position:absolute; inset:0 0 44px 0}
+.dk-icons{position:absolute; left:8px; top:8px; bottom:8px; display:grid; grid-auto-flow:column; grid-template-rows:repeat(auto-fill, 80px); gap:4px; align-content:start}
+.w11-it{width:84px; display:grid; justify-items:center; gap:3px; padding:6px 3px; border-radius:6px; border:1px solid transparent; text-align:center; cursor:default}
+.w11-it svg{width:38px; height:38px}
+.w11-it span{overflow-wrap:anywhere; line-height:1.2; font-size:12px}
+.w11-it:hover{background:rgba(120,160,230,.18)}
+.w11-it.sel{background:rgba(60,120,220,.22); border-color:rgba(60,120,220,.55)}
+.w11-it.dim{opacity:.45}
+.w11-it.dk{color:#FFFFFF; text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.w11-it.dk.sel, .w11-it.dk:hover{background:rgba(255,255,255,.22); border-color:rgba(255,255,255,.5)}
+.w11-ren{width:80px; font:inherit; font-size:12px; padding:1px 3px; border:1px solid #2F6FE0; border-radius:3px; background:#FFFFFF; color:#111111; text-shadow:none; outline:none}
+.w11-notif{position:absolute; right:10px; bottom:10px; z-index:900; max-width:270px; background:#F3F5F8; border:1px solid #CBD3DE; border-radius:8px; padding:10px 12px; box-shadow:0 10px 26px -8px rgba(0,0,0,.45); font-weight:600; animation:rise .3s ease}
+/* ventanas */
+.w11-win{position:absolute; display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #AEB8C6; border-radius:8px; box-shadow:0 14px 32px -10px rgba(0,0,0,.45); overflow:hidden; min-width:240px}
+.w11-win.act{border-color:#7E95B8; box-shadow:0 18px 40px -10px rgba(0,0,0,.55)}
+.w11-win.max{inset:0; border-radius:0}
+.w11-tbar{display:flex; justify-content:space-between; align-items:center; height:32px; flex:none; background:#EEF2F7; padding-left:10px; cursor:move; touch-action:none}
+.w11-win:not(.act) .w11-tbar{background:#F7F8FA; color:#7B8594}
+.w11-win.max .w11-tbar{cursor:default}
+.w11-ttl{display:flex; align-items:center; gap:7px; min-width:0; overflow:hidden; white-space:nowrap}
+.w11-ttl svg{width:16px; height:16px; flex:none}
+.w11-ttl span{overflow:hidden; text-overflow:ellipsis}
+.w11-tbtns{display:flex; flex:none}
+.w11-tbtns button{appearance:none; border:0; background:transparent; width:44px; height:32px; display:grid; place-items:center; cursor:pointer}
+.w11-tbtns button svg{width:11px; height:11px; fill:none; stroke:#1B2433; stroke-width:1.2}
+.w11-tbtns button:hover{background:#DDE3EC}
+.w11-tbtns button.x:hover{background:#C42B1C} .w11-tbtns button.x:hover svg{stroke:#FFFFFF}
+.ex-cmd{display:flex; align-items:center; gap:6px; padding:5px 8px; border-bottom:1px solid #E3E8EF; flex:none; min-width:0}
+.ex-newwrap{position:relative}
+.ex-new, .ex-up{appearance:none; border:1px solid transparent; background:transparent; border-radius:4px; padding:4px 8px; cursor:pointer; font-weight:600; white-space:nowrap}
+.ex-new{background:#2F6FE0; color:#FFFFFF !important}
+.ex-new:hover{background:#255BC0}
+.ex-up:hover:not(:disabled){background:#E8EDF4}
+.ex-up:disabled{opacity:.35}
+.ex-path{flex:1; min-width:0; padding:4px 8px; border:1px solid #DCE3EC; border-radius:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#3B4452}
+.ex-main{flex:1; display:flex; min-height:0}
+.ex-nav{width:128px; flex:none; border-right:1px solid #E3E8EF; padding:6px 4px; overflow:auto; display:grid; align-content:start; gap:1px}
+.w11-nav{appearance:none; border:0; background:transparent; display:flex; align-items:center; gap:6px; padding:4px 6px; border-radius:4px; cursor:pointer; text-align:left; white-space:nowrap}
+.w11-nav svg{width:16px; height:16px; flex:none}
+.w11-nav:hover{background:#EEF2F7} .w11-nav.on{background:#DCE8FB; font-weight:700}
+.ex-content{flex:1; min-width:0; overflow:auto; padding:8px; display:flex; flex-wrap:wrap; align-content:flex-start; gap:4px}
+.w11-empty{margin:20px auto; color:#7B8594}
+.ex-status{flex:none; padding:3px 10px; border-top:1px solid #E3E8EF; color:#5F6B7A; font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+@media (max-width:640px){ .ex-nav{width:96px} .w11-nav span{font-size:11px} .w11-it{width:72px} .w11-win{min-width:0} }
+.w11-pop{position:absolute; z-index:1000; display:grid; min-width:180px; padding:4px; background:#FFFFFF; border:1px solid #CBD3DE; border-radius:8px; box-shadow:0 14px 30px -10px rgba(0,0,0,.45)}
+.w11-pop button{appearance:none; border:0; background:transparent; display:flex; align-items:center; gap:8px; text-align:left; padding:7px 10px; border-radius:5px; cursor:pointer; white-space:nowrap}
+.w11-pop button svg{width:16px; height:16px; flex:none}
+.w11-pop button:hover{background:#E8EFFB}
+.w11-pop hr{border:0; border-top:1px solid #E3E8EF; margin:3px 0}
+.w11-pop kbd{margin-left:auto; padding-left:16px; color:#7B8594; font:inherit; font-size:11px}
+.ex-pop{left:0; top:calc(100% + 4px)}
+.np-menu{display:flex; gap:2px; padding:3px 6px; flex:none; border-bottom:1px solid #E3E8EF}
+.np-menu > span:not(.np-mw){padding:3px 8px; color:#9AA3AE}
+.np-mw{position:relative}
+.np-mw > button{appearance:none; border:0; background:transparent; padding:3px 8px; border-radius:4px; cursor:pointer}
+.np-mw > button:hover{background:#E8EDF4}
+.np-pop{left:0; top:calc(100% + 2px)}
+.np-ta{flex:1; min-height:0; width:100%; resize:none; border:0; outline:none; padding:10px 12px; font:14px/1.5 Consolas, "Cascadia Mono", ui-monospace, monospace; color:#111111; background:#FFFFFF; user-select:text; -webkit-user-select:text}
+/* diálogo */
+.w11-modal{position:absolute; inset:0 0 44px 0; z-index:950; background:rgba(20,30,50,.25); display:grid; place-items:center; padding:10px}
+.dlg{width:min(560px, 100%); height:min(380px, 100%); display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #9AA9BC; border-radius:8px; box-shadow:0 24px 50px -12px rgba(0,0,0,.6); overflow:hidden}
+.dlg-s{height:auto; width:min(380px,100%)}
+.dlg-bar{display:flex; justify-content:space-between; align-items:center; height:32px; padding-left:12px; background:#EEF2F7; font-weight:700; flex:none}
+.dlg-bar .x{appearance:none; border:0; background:transparent; width:44px; height:32px; display:grid; place-items:center; cursor:pointer}
+.dlg-bar .x svg{width:11px; height:11px; fill:none; stroke:#1B2433; stroke-width:1.2}
+.dlg-bar .x:hover{background:#C42B1C} .dlg-bar .x:hover svg{stroke:#FFFFFF}
+.dlg-q{margin:0; padding:18px 16px; font-size:14px}
+.dlg-bottom{flex:none; display:grid; gap:6px; padding:8px 10px; border-top:1px solid #E3E8EF; background:#F7F9FC}
+.dlg-bottom label{display:grid; grid-template-columns:120px minmax(0,1fr); align-items:center; gap:6px}
+.dlg-bottom input, .dlg-bottom select{font:inherit; padding:4px 6px; border:1px solid #9AA9BC; border-radius:4px; background:#FFFFFF; color:#111111; min-width:0; user-select:text; -webkit-user-select:text}
+.dlg-bottom input:focus{outline:2px solid #2F6FE0}
+.dlg-btns{display:flex; justify-content:flex-end; gap:8px; padding:0 0 4px}
+.dlg-s .dlg-btns{padding:0 14px 14px}
+.dlg-btns button{appearance:none; min-width:84px; padding:5px 12px; border:1px solid #AEB8C6; border-radius:4px; background:#FFFFFF; cursor:pointer}
+.dlg-btns button:hover{background:#EEF2F7}
+.dlg-btns .pri{background:#2F6FE0; border-color:#2F6FE0; color:#FFFFFF !important}
+.dlg-btns .pri:hover{background:#255BC0}
+@media (max-width:640px){ .dlg-bottom label{grid-template-columns:minmax(0,1fr)} }
+/* barra de tareas */
+.w11-tb{position:absolute; left:0; right:0; bottom:0; height:44px; z-index:980; display:flex; align-items:center; justify-content:center; background:rgba(238,242,247,.92); border-top:1px solid #C9D3E0; backdrop-filter:blur(8px)}
+.tb-c{display:flex; gap:3px; align-items:center}
+.tb-c > button{appearance:none; border:0; background:transparent; height:38px; min-width:40px; padding:0 6px; border-radius:6px; display:flex; align-items:center; justify-content:center; gap:6px; cursor:pointer; position:relative}
+.tb-c > button:hover, .tb-c > button.act{background:rgba(255,255,255,.75)}
+.tb-c svg{width:24px; height:24px}
+.tb-start svg{fill:#2F6FE0}
+.tb-search{border:1px solid #C9D3E0 !important; background:#FFFFFF !important; border-radius:999px !important; padding:0 12px !important; height:32px !important; color:#5F6B7A}
+.tb-search svg{width:15px; height:15px; fill:none; stroke:#3B4452; stroke-width:2.4; stroke-linecap:round}
+@media (max-width:640px){ .tb-search span{display:none} }
+.tb-app.open::after{content:""; position:absolute; bottom:2px; left:50%; transform:translateX(-50%); width:6px; height:3px; border-radius:2px; background:#8A94A1}
+.tb-app.act::after{width:16px; background:#2F6FE0}
+.tb-r{position:absolute; right:8px; top:0; bottom:0; display:flex; align-items:center; gap:7px}
+.tb-ic{width:15px; height:15px; fill:none; stroke:#1B2433; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+.tb-usb{appearance:none; border:0; background:transparent; padding:3px; border-radius:4px; cursor:pointer}
+.tb-usb svg{width:20px; height:20px} .tb-usb:hover{background:rgba(255,255,255,.8)}
+.tb-clock{font-size:11px; text-align:right; line-height:1.25}
+@media (max-width:640px){ .tb-r .tb-ic, .tb-clock{display:none} .w11-tb{justify-content:flex-start; padding-left:4px} }
+.tb-pop{right:0; bottom:calc(100% + 6px)}
+/* inicio */
+.w11-start{position:absolute; z-index:990; left:50%; bottom:52px; transform:translateX(-50%); width:min(440px, calc(100% - 16px)); background:rgba(243,246,250,.97); border:1px solid #C9D3E0; border-radius:10px; box-shadow:0 24px 50px -14px rgba(0,0,0,.55); padding:14px 16px 0; animation:rise .25s ease}
+.st-search{border:1px solid #C9D3E0; background:#FFFFFF; border-radius:999px; padding:6px 14px; color:#7B8594}
+.st-h{margin:12px 0 6px; font-weight:700}
+.st-apps{display:grid; grid-template-columns:repeat(auto-fill, minmax(84px,1fr)); gap:4px}
+.st-apps button{appearance:none; border:0; background:transparent; display:grid; justify-items:center; gap:4px; padding:8px 4px; border-radius:6px; cursor:pointer; text-align:center}
+.st-apps button:hover{background:#FFFFFF}
+.st-apps svg{width:32px; height:32px}
+.st-apps span{font-size:11.5px; line-height:1.2}
+.st-foot{position:relative; display:flex; justify-content:space-between; align-items:center; margin:12px -16px 0; padding:8px 16px; border-top:1px solid #DCE3EC; background:rgba(230,235,242,.9); border-radius:0 0 10px 10px}
+.st-user{appearance:none; border:0; background:transparent; display:flex; align-items:center; gap:8px; padding:5px 8px; border-radius:6px; cursor:pointer; font-weight:600}
+.st-user i{width:28px; height:28px; border-radius:50%; background:#7A3FC2; color:#FFFFFF; font-style:normal; font-weight:700; display:grid; place-items:center}
+.st-user:hover, .st-pwr:hover{background:#FFFFFF}
+.st-pwr{appearance:none; border:0; background:transparent; width:36px; height:36px; border-radius:6px; display:grid; place-items:center; cursor:pointer}
+.st-pwr svg{width:18px; height:18px; fill:none; stroke:#1B2433; stroke-width:2.2; stroke-linecap:round}
+.st-pop{bottom:calc(100% - 4px)}
+.st-pop-u{left:10px} .st-pop-p{right:10px; min-width:150px}
+.w11-ctx{min-width:190px}
+/* pantallas completas */
+.w11-full{position:absolute; inset:0; display:grid; place-content:center; justify-items:center; gap:10px; text-align:center; border:0; width:100%; padding:20px}
+.w11-full p{margin:0; font-size:18px}
+.w11-full.off{background:#000000; color:#7B8594; cursor:pointer} .w11-full.off small{color:#5F6B7A}
+.w11-full.boot{background:#000000; color:#D7DEE8}
+.w11-full.busy{background:#1F4FA8; color:#FFFFFF}
+.w11-full.login{background:linear-gradient(160deg,#2B5FC9,#1B3A7A); color:#FFFFFF}
+.w11-spin{width:40px; height:40px; border-radius:50%; border:4px solid rgba(255,255,255,.2); border-top-color:#FFFFFF; animation:spin 1s linear infinite}
+.lg-clock{font-size:44px; font-weight:300; margin-bottom:6px}
+.lg-av{width:84px; height:84px; border-radius:50%; background:#7A3FC2; display:grid; place-items:center; font-size:34px; font-weight:700; border:3px solid rgba(255,255,255,.6)}
+.lg-n{font-size:20px !important; font-weight:700}
+.lg-s{font-size:13px !important; opacity:.8}
+.lg-btn{appearance:none; margin-top:6px; padding:8px 26px; border-radius:6px; border:1px solid rgba(255,255,255,.5); background:rgba(255,255,255,.18); color:#FFFFFF !important; font-weight:700; cursor:pointer}
+.lg-btn:hover{background:rgba(255,255,255,.3)}
+
 @media (prefers-reduced-motion
+
 : reduce){
   *, *::before, *::after{animation:none !important; transition-duration:.01ms !important}
 }
@@ -5064,6 +5226,360 @@ function loadOrder(){ let o=null; try{ o=JSON.parse(lsGet(ORDER_KEY)) }catch(e){
   return o }
 let ORDER=loadOrder();
 function eyebrowFor(k){ const base=(VIEWS[k].eyebrow||'').replace(/^Tema \d+ · /,'').replace(/^Infografía · /,''); return `Tema ${ORDER.indexOf(k)+1} · ${base}` }
+
+/* =========================================================
+   SIMULADOR DE WINDOWS 11 (tema: Escritorio de Windows 11)
+   ========================================================= */
+const W11_M=[
+  ['Minimiza y regresa una ventana','En la ventana abierta toca el botón – (arriba a la derecha). La ventana se esconde en la barra de tareas: toca su ícono para que regrese.'],
+  ['Maximiza y restaura una ventana','Toca el botón □ para que la ventana ocupe toda la pantalla. Tócalo otra vez para regresarla a su tamaño.'],
+  ['Cierra una ventana','Toca la ✕ de una ventana.'],
+  ['Crea una carpeta','Abre el Explorador de archivos (barra de tareas) → Documentos → Nuevo → Carpeta → escribe Informática → Enter.'],
+  ['Guarda un archivo en la computadora','Inicio → Bloc de notas → escribe tu nombre → Archivo → Guardar como → Documentos → nombre: tarea → Guardar.'],
+  ['Guarda un archivo en la memoria USB','Toca “Conectar memoria USB”. En el Bloc de notas: Archivo → Guardar como → USB (E:) → Guardar.'],
+  ['Expulsa la USB de forma segura','Toca el ícono de la USB junto al reloj → Expulsar USB (E:) → toca “Retirar memoria USB”.'],
+  ['Cierra sesión y vuelve a entrar','Inicio → tu nombre (abajo a la izquierda) → Cerrar sesión. Luego toca Iniciar sesión.'],
+  ['Reinicia el equipo','Inicio → botón de encendido ⏻ → Reiniciar. Espera a que vuelva a encender e inicia sesión.'],
+  ['Apaga y enciende el equipo','Inicio → botón de encendido ⏻ → Apagar. Para volver a usarlo, presiona el botón de encendido del equipo.']
+];
+const EXW='.w11-win[data-app="explorer"]', NPW='.w11-win[data-app="notepad"]';
+const W11_DEMOS=[
+  [{c:'Toca el botón Minimizar (–) de la ventana.',sel:EXW+' [data-a="min"]'},
+   {c:'La ventana se escondió en la barra de tareas. Toca su ícono para que regrese.',sel:'[data-w="tb-explorer"]'}],
+  [{c:'Toca Maximizar (□): la ventana ocupa toda la pantalla.',sel:EXW+' [data-a="max"]',wait:1200},
+   {c:'Toca Restaurar para regresarla a su tamaño.',sel:EXW+' [data-a="max"]'}],
+  [{c:'Toca Cerrar (✕): la ventana se cierra.',sel:EXW+' [data-a="close"]'}],
+  [{c:'En el Explorador de archivos, entra a Documentos.',sel:EXW+' [data-a="nav"][data-k="Documentos"]'},
+   {c:'Toca el botón Nuevo.',sel:EXW+' [data-a="new"]'},
+   {c:'Elige Carpeta.',sel:EXW+' [data-a="new-folder"]'},
+   {c:'Escribe el nombre de la carpeta.',sel:'.w11-ren',act:'type',text:'Informática'},
+   {c:'Presiona Enter para confirmar el nombre.',sel:'.w11-ren',act:'enter'}],
+  [{c:'Abre el menú Inicio.',sel:'[data-w="start"]'},
+   {c:'Elige Bloc de notas.',sel:'[data-w="sapp-notepad"]'},
+   {c:'Escribe tu texto.',sel:'.np-ta',act:'type',text:'Me llamo Ana. 3.° A'},
+   {c:'Abre el menú Archivo.',sel:NPW+' [data-a="file"]'},
+   {c:'Elige Guardar como…',sel:NPW+' [data-a="saveas"]'},
+   {c:'Elige dónde guardar: Documentos (en la computadora).',sel:'.dlg [data-a="dnav"][data-k="Documentos"]'},
+   {c:'Escribe el nombre del archivo.',sel:'.dlg [data-dname]',act:'type',text:'tarea',clear:true},
+   {c:'Toca Guardar.',sel:'.dlg [data-a="dsave"]',wait:1400}],
+  [{c:'Conecta la memoria USB al equipo.',sel:'#w11-usb',wait:1300},
+   {c:'Abre el menú Inicio.',sel:'[data-w="start"]'},
+   {c:'Elige Bloc de notas.',sel:'[data-w="sapp-notepad"]'},
+   {c:'Escribe tu texto.',sel:'.np-ta',act:'type',text:'Tarea para entregar'},
+   {c:'Abre el menú Archivo.',sel:NPW+' [data-a="file"]'},
+   {c:'Elige Guardar como…',sel:NPW+' [data-a="saveas"]'},
+   {c:'Elige la memoria: USB (E:).',sel:'.dlg [data-a="dnav"][data-k="USB"]'},
+   {c:'Escribe el nombre del archivo.',sel:'.dlg [data-dname]',act:'type',text:'tarea',clear:true},
+   {c:'Toca Guardar: el archivo queda en la memoria USB.',sel:'.dlg [data-a="dsave"]',wait:1400}],
+  [{c:'Primero conecta la memoria USB.',sel:'#w11-usb',wait:1200},
+   {c:'Para quitarla sin dañar archivos, toca el ícono de la USB junto al reloj.',sel:'[data-a="usbtray"]'},
+   {c:'Elige Expulsar USB (E:).',sel:'[data-a="eject"]',wait:1400},
+   {c:'Windows avisa que es seguro quitarla. Ahora sí, retírala.',sel:'#w11-usb'}],
+  [{c:'Abre el menú Inicio.',sel:'[data-w="start"]'},
+   {c:'Toca tu nombre, abajo a la izquierda.',sel:'[data-w="suser"]'},
+   {c:'Elige Cerrar sesión.',sel:'[data-w="signout"]'},
+   {c:'Se cerraron tus programas. Para volver a entrar, toca Iniciar sesión.',sel:'[data-a="login"]',timeout:6000}],
+  [{c:'Abre el menú Inicio.',sel:'[data-w="start"]'},
+   {c:'Toca el botón de encendido ⏻, abajo a la derecha.',sel:'[data-w="spower"]'},
+   {c:'Elige Reiniciar.',sel:'[data-w="restart"]'},
+   {c:'El equipo se apaga y vuelve a encender solo. Inicia sesión.',sel:'[data-a="login"]',timeout:8000}],
+  [{c:'Abre el menú Inicio.',sel:'[data-w="start"]'},
+   {c:'Toca el botón de encendido ⏻.',sel:'[data-w="spower"]'},
+   {c:'Elige Apagar. Nunca lo apagues quitando la corriente.',sel:'[data-w="shutdown"]',wait:2600},
+   {c:'Para encenderlo, presiona el botón de encendido del equipo.',sel:'#w11-pwr',wait:600},
+   {c:'Cuando aparezca la pantalla de inicio, inicia sesión.',sel:'[data-a="login"]',timeout:6000}]
+];
+const WI={
+  folder:'<svg viewBox="0 0 48 48"><path d="M4 12a3 3 0 0 1 3-3h12l5 5h17a3 3 0 0 1 3 3v22a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#E9A92B"/><path d="M4 18h40v21a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#F7C756"/></svg>',
+  txt:'<svg viewBox="0 0 48 48"><path d="M11 4h19l8 8v32H11z" fill="#FFFFFF" stroke="#8C99AB" stroke-width="2"/><path d="M30 4v8h8M17 20h15M17 26h15M17 32h10" fill="none" stroke="#8C99AB" stroke-width="2.4"/></svg>',
+  usb:'<svg viewBox="0 0 48 48"><rect x="8" y="14" width="32" height="22" rx="4" fill="#5B6B80"/><rect x="12" y="19" width="16" height="12" rx="2" fill="#9FB3C8"/><circle cx="34" cy="25" r="2.5" fill="#39D98A"/></svg>',
+  pc:'<svg viewBox="0 0 48 48"><rect x="5" y="8" width="38" height="25" rx="3" fill="#2F6FE0"/><rect x="8" y="11" width="32" height="19" rx="1.5" fill="#8FC0FF"/><path d="M18 40h12M24 33v7" stroke="#5B6B80" stroke-width="3" stroke-linecap="round"/></svg>',
+  bin:'<svg viewBox="0 0 48 48"><path d="M12 14h24l-2 30H14z" fill="#DDE5EF" stroke="#7D8895" stroke-width="2"/><rect x="9" y="9" width="30" height="5" rx="2" fill="#B9C4D2"/><path d="M20 20v18M28 20v18" stroke="#7D8895" stroke-width="2"/></svg>',
+  explorer:'<svg viewBox="0 0 48 48"><path d="M4 12a3 3 0 0 1 3-3h12l5 5h17a3 3 0 0 1 3 3v22a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#E9A92B"/><path d="M4 20h40v19a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#F7C756"/><rect x="14" y="26" width="20" height="4" rx="2" fill="#2F6FE0"/></svg>',
+  notepad:'<svg viewBox="0 0 48 48"><rect x="9" y="7" width="30" height="36" rx="4" fill="#4FB0F0"/><rect x="12" y="13" width="24" height="27" rx="2" fill="#FFFFFF"/><path d="M16 20h16M16 26h16M16 32h10" stroke="#4FB0F0" stroke-width="2.4"/><path d="M15 5v6M21 5v6M27 5v6M33 5v6" stroke="#2A6FA8" stroke-width="2.4" stroke-linecap="round"/></svg>',
+  web:'<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#1A9A8C"/><path d="M6 24h36M24 6c5 5 7 11 7 18s-2 13-7 18c-5-5-7-11-7-18s2-13 7-18z" fill="none" stroke="#FFFFFF" stroke-width="2.4"/></svg>',
+  config:'<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#6B7A90"/><circle cx="24" cy="24" r="6" fill="none" stroke="#FFFFFF" stroke-width="3.4"/><path d="M24 9v6M24 33v6M9 24h6M33 24h6M13.5 13.5l4 4M30.5 30.5l4 4M13.5 34.5l4-4M30.5 17.5l4-4" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round"/></svg>',
+  calc:'<svg viewBox="0 0 48 48"><rect x="10" y="6" width="28" height="36" rx="5" fill="#3B4452"/><rect x="14" y="10" width="20" height="8" rx="2" fill="#A7E3C4"/><g fill="#FFFFFF"><circle cx="17" cy="25" r="2.4"/><circle cx="24" cy="25" r="2.4"/><circle cx="31" cy="25" r="2.4"/><circle cx="17" cy="32" r="2.4"/><circle cx="24" cy="32" r="2.4"/><circle cx="31" cy="32" r="2.4"/></g></svg>'
+};
+const PWR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v8"/><path d="M6.3 7.5a8 8 0 1 0 11.4 0"/></svg>';
+const ROOTS=[['Escritorio','Escritorio','pc'],['Documentos','Documentos','folder'],['Descargas','Descargas','folder'],['Imagenes','Imágenes','folder'],['USB','USB (E:)','usb']];
+function w11HTML(){ return `<div class="sbox span3" id="w11-box"><h3>Simulador de Windows 11: 10 misiones</h3>
+  <p>Practica en un Windows de mentira: nada de lo que hagas aquí afecta tu computadora. Toca <b>Ver cómo se hace</b> en cualquier misión para ver el procedimiento y luego inténtalo tú.</p>
+  <p class="fb" id="w11-score"></p>
+  <div class="w11-lab">
+    <ol class="mlab-list w11-list" id="w11-list">${W11_M.map((m,i)=>`<li data-i="${i}"><b>${m[0]}</b><span>${m[1]}</span><button type="button" class="btn w11-demo" data-demo="${i}"><svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg>Ver cómo se hace</button></li>`).join('')}</ol>
+    <div class="w11-col">
+      <div class="w11-cap" id="w11-cap" aria-live="polite">Elige una misión. Si necesitas ayuda, toca “Ver cómo se hace”.</div>
+      <div class="w11-dev" id="w11-dev">
+        <div class="w11-mon"><div class="w11" id="w11" aria-label="Pantalla del simulador de Windows 11"></div></div>
+        <div class="w11-under">
+          <button type="button" class="w11-pwr" id="w11-pwr" aria-label="Botón de encendido del equipo">${PWR}<span>Botón de encendido</span></button>
+          <button type="button" class="w11-usbbtn" id="w11-usb"><span class="w11-port"><i></i></span><b id="w11-usbt">Conectar memoria USB</b></button>
+        </div>
+        <div class="w11-cur" id="w11-cur" hidden><svg viewBox="0 0 24 24"><path d="M4 2l15 11.5-6.6 1.2 3.9 7.3-2.8 1.4-3.9-7.3L4 21z" fill="#FFFFFF" stroke="#111111" stroke-width="1.4" stroke-linejoin="round"/></svg><i></i></div>
+        <div class="w11-block" id="w11-block" hidden></div>
+      </div>
+      <div class="ds-bar"><span id="w11-msg"></span><span class="tool-btns"><button type="button" class="btn" id="w11-stop" hidden>Detener demostración</button><button type="button" class="btn" id="w11-reset">Reiniciar simulador</button></span></div>
+    </div>
+  </div></div>` }
+
+function w11Init(){
+  const box=$('#w11-box'); if(!box) return;
+  const scr=$('#w11'), dev=$('#w11-dev');
+  let S, uid=0, demo=null, timers=[], done=new Set();
+  const F=(name,items=[])=>({id:'f'+(uid++),name,type:'folder',items});
+  const T=(name,text='')=>({id:'f'+(uid++),name,type:'txt',text});
+  const later=(ms,fn)=>{ const t=setTimeout(()=>{ if(document.contains(scr)) fn() },ms); timers.push(t) };
+  const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();
+  function fresh(){ timers.forEach(clearTimeout); timers=[]; uid=0;
+    S={phase:'desk', usb:false, ejected:false, root:{Escritorio:F('Escritorio'), Documentos:F('Documentos',[F('Tareas'),T('útiles.txt','Cuaderno, lápiz, regla')]), Descargas:F('Descargas',[T('horario.txt','Lunes: Informática')]), Imagenes:F('Imágenes'), USB:F('USB (E:)')},
+      wins:[], z:10, start:false, sub:null, menu:null, tray:false, dlg:null, notif:null, locked:false, ev:{}};
+    openExplorer(['Documentos']); render() }
+  const resolve=p=>{ let f=S.root[p[0]]; for(const id of p.slice(1)){ f=f&&f.items.find(x=>x.id===id) } return f };
+  const pathLabel=p=>[ROOTS.find(r=>r[0]===p[0])[1],...p.slice(1).map(id=>{ let f=S.root[p[0]], n=''; for(const x of p.slice(1)){ f=f.items.find(y=>y.id===x); if(x===id){ n=f.name; break } } return n })];
+  const findAny=id=>{ for(const k in S.root){ const r=(function walk(f){ for(const it of f.items){ if(it.id===id) return [f,it]; if(it.type==='folder'){ const q=walk(it); if(q) return q } } return null })(S.root[k]); if(r) return r } return [null,null] };
+  const say=(t,ok)=>{ const m=$('#w11-msg'); m.textContent=t; m.className=ok?'w11-ok':'' };
+  const notify=t=>{ S.notif=t; const n=S.notif; later(3400,()=>{ if(S.notif===n){ S.notif=null; render() } }) };
+  const win=id=>S.wins.find(w=>w.id===id);
+  const top=()=>S.wins.filter(w=>!w.min).sort((a,b)=>b.z-a.z)[0];
+  const focusW=w=>{ w.z=++S.z };
+  function openExplorer(path){ const w={id:'w'+(uid++), app:'explorer', path, x:15, y:5, w:70, h:74, min:false, max:false, sel:null, ren:null, newMenu:false}; S.wins.push(w); focusW(w); return w }
+  function openNotepad(file,loc){ const w={id:'w'+(uid++), app:'notepad', text:file?file.text:'', file:file?{id:file.id,name:file.name}:null, loc:loc||null, dirty:false, fileMenu:false, x:28, y:10, w:60, h:68, min:false, max:false}; S.wins.push(w); focusW(w); return w }
+  const closePops=()=>{ S.start=false; S.sub=null; S.menu=null; S.tray=false; S.wins.forEach(w=>{ w.newMenu=false; w.fileMenu=false }) };
+  const uniq=(list,base,ext='')=>{ let n=base+ext, k=2; while(list.some(x=>x.name.toLowerCase()===n.toLowerCase())) n=`${base} (${k++})${ext}`; return n };
+  const npTitle=w=>`${w.dirty?'*':''}${w.file?w.file.name:'Sin título'} - Bloc de notas`;
+
+  /* ----- dibujo ----- */
+  function itemsHTML(list,winId,ren,sel,dlg){ if(!list.length) return `<p class="w11-empty">Esta carpeta está vacía.</p>`;
+    return list.map(it=>`<div class="w11-it${sel===it.id?' sel':''}${dlg&&it.type!=='folder'?' dim':''}" data-a="item" data-i="${it.id}" data-win="${winId}" data-type="${it.type}">${WI[it.type==='folder'?'folder':'txt']}${ren===it.id?`<input class="w11-ren" data-ren="${it.id}" value="${esc(it.name)}" aria-label="Nombre" autocomplete="off" spellcheck="false">`:`<span>${esc(it.name)}</span>`}</div>`).join('') }
+  function navHTML(cur,attr){ return ROOTS.filter(r=>r[0]!=='USB'||S.usb).map(r=>`<button type="button" class="w11-nav${cur===r[0]?' on':''}" data-a="${attr}" data-k="${r[0]}">${WI[r[2]]}<span>${r[1]}</span></button>`).join('') }
+  const tb=(w)=>`<div class="w11-tbar" data-drag="${w.id}"><span class="w11-ttl">${WI[w.app]}<span>${esc(w.app==='notepad'?npTitle(w):pathLabel(w.path).slice(-1)[0])}</span></span>
+    <span class="w11-tbtns"><button type="button" data-a="min" data-win="${w.id}" title="Minimizar" aria-label="Minimizar"><svg viewBox="0 0 12 12"><path d="M2 6h8"/></svg></button><button type="button" data-a="max" data-win="${w.id}" title="${w.max?'Restaurar':'Maximizar'}" aria-label="${w.max?'Restaurar':'Maximizar'}">${w.max?'<svg viewBox="0 0 12 12"><rect x="2" y="4" width="6" height="6"/><path d="M4 4V2h6v6H8"/></svg>':'<svg viewBox="0 0 12 12"><rect x="2" y="2" width="8" height="8"/></svg>'}</button><button type="button" class="x" data-a="close" data-win="${w.id}" title="Cerrar" aria-label="Cerrar"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2l-8 8"/></svg></button></span></div>`;
+  function winHTML(w){ const act=top()===w;
+    const st=w.max?'':`left:${w.x}%;top:${w.y}%;width:${w.w}%;height:${w.h}%;`;
+    let body='';
+    if(w.app==='explorer'){ const f=resolve(w.path)||S.root.Documentos;
+      body=`<div class="ex-cmd"><span class="ex-newwrap"><button type="button" class="ex-new" data-a="new" data-win="${w.id}">＋ Nuevo ▾</button>${w.newMenu?`<div class="w11-pop ex-pop"><button type="button" data-a="new-folder" data-win="${w.id}">${WI.folder}Carpeta</button><button type="button" data-a="new-txt" data-win="${w.id}">${WI.txt}Documento de texto</button></div>`:''}</span>
+        <button type="button" class="ex-up" data-a="up" data-win="${w.id}" ${w.path.length>1?'':'disabled'} title="Subir un nivel" aria-label="Subir un nivel">↑</button><span class="ex-path">${pathLabel(w.path).map(esc).join(' › ')}</span></div>
+        <div class="ex-main"><nav class="ex-nav" data-win="${w.id}">${navHTML(w.path[0],'nav')}</nav><div class="ex-content" data-ctx="ex" data-win="${w.id}">${itemsHTML(f.items,w.id,w.ren,w.sel)}</div></div>
+        <div class="ex-status">${f.items.length} ${f.items.length===1?'elemento':'elementos'}${w.path[0]==='USB'?' · USB (E:)':''}</div>` }
+    else body=`<div class="np-menu"><span class="np-mw"><button type="button" data-a="file" data-win="${w.id}">Archivo</button>${w.fileMenu?`<div class="w11-pop np-pop"><button type="button" data-a="save" data-win="${w.id}">Guardar<kbd>Ctrl+S</kbd></button><button type="button" data-a="saveas" data-win="${w.id}">Guardar como…</button><hr><button type="button" data-a="close" data-win="${w.id}">Cerrar ventana</button></div>`:''}</span><span>Editar</span><span>Ver</span></div>
+      <textarea class="np-ta" data-win="${w.id}" spellcheck="false" placeholder="Escribe aquí…" aria-label="Texto del Bloc de notas">${esc(w.text)}</textarea>
+      <div class="ex-status">${w.loc?esc(pathLabel(w.loc).join(' › ')):'Sin guardar'} · UTF-8</div>`;
+    return `<div class="w11-win${w.max?' max':''}${act?' act':''}" data-id="${w.id}" data-app="${w.app}" style="${st}z-index:${w.z}" ${w.min?'hidden':''}>${tb(w)}${body}</div>` }
+  function dlgHTML(){ const d=S.dlg; if(!d) return '';
+    if(d.type==='confirm'){ const w=win(d.win); return `<div class="w11-modal"><div class="dlg dlg-s" role="dialog" aria-label="Bloc de notas"><div class="dlg-bar"><span>Bloc de notas</span></div><p class="dlg-q">¿Quieres guardar los cambios de <b>${esc(w.file?w.file.name:'Sin título')}</b>?</p><div class="dlg-btns"><button type="button" class="pri" data-a="c-save">Guardar</button><button type="button" data-a="c-no">No guardar</button><button type="button" data-a="c-cancel">Cancelar</button></div></div></div>` }
+    const f=resolve(d.path)||S.root.Documentos;
+    return `<div class="w11-modal"><div class="dlg" role="dialog" aria-label="Guardar como"><div class="dlg-bar"><span>Guardar como</span><button type="button" class="x" data-a="dcancel" aria-label="Cancelar"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2l-8 8"/></svg></button></div>
+      <div class="ex-cmd"><button type="button" class="ex-up" data-a="dup" ${d.path.length>1?'':'disabled'} aria-label="Subir un nivel">↑</button><span class="ex-path">${pathLabel(d.path).map(esc).join(' › ')}</span><button type="button" class="ex-new" data-a="dnew">＋ Nueva carpeta</button></div>
+      <div class="ex-main"><nav class="ex-nav">${navHTML(d.path[0],'dnav')}</nav><div class="ex-content" data-win="dlg">${itemsHTML(f.items,'dlg',d.ren,null,true)}</div></div>
+      <div class="dlg-bottom"><label>Nombre de archivo:<input data-dname value="${esc(d.name)}" autocomplete="off" spellcheck="false"></label><label>Tipo:<select disabled><option>Documentos de texto (*.txt)</option></select></label>
+      <div class="dlg-btns"><button type="button" class="pri" data-a="dsave">Guardar</button><button type="button" data-a="dcancel">Cancelar</button></div></div></div></div>` }
+  function startHTML(){ if(!S.start) return '';
+    const apps=[['explorer','Explorador de archivos'],['notepad','Bloc de notas'],['web','Navegador'],['calc','Calculadora'],['config','Configuración']];
+    return `<div class="w11-start" role="menu"><div class="st-search">Busca aplicaciones, configuraciones y documentos</div><p class="st-h">Anclado</p>
+      <div class="st-apps">${apps.map(([k,n])=>`<button type="button" data-a="sapp" data-app="${k}" data-w="sapp-${k}">${WI[k]}<span>${n}</span></button>`).join('')}</div>
+      <div class="st-foot"><button type="button" class="st-user" data-a="suser" data-w="suser"><i>A</i>Alumno</button><button type="button" class="st-pwr" data-a="spower" data-w="spower" title="Inicio/Apagado" aria-label="Inicio/Apagado">${PWR}</button>
+      ${S.sub==='user'?`<div class="w11-pop st-pop st-pop-u"><button type="button" data-a="lock">Bloquear</button><button type="button" data-a="signout" data-w="signout">Cerrar sesión</button></div>`:''}
+      ${S.sub==='power'?`<div class="w11-pop st-pop st-pop-p"><button type="button" data-a="sleep">Suspender</button><button type="button" data-a="shutdown" data-w="shutdown">Apagar</button><button type="button" data-a="restart" data-w="restart">Reiniciar</button></div>`:''}</div></div>` }
+  function taskbarHTML(){ const d=new Date(); let h=d.getHours(); const ap=h<12?'a. m.':'p. m.'; h=h%12||12;
+    const app=k=>{ const ws=S.wins.filter(w=>w.app===k), act=top()&&top().app===k; return `<button type="button" class="tb-app${ws.length?' open':''}${act?' act':''}" data-a="tb" data-app="${k}" data-w="tb-${k}" title="${k==='explorer'?'Explorador de archivos':'Bloc de notas'}">${WI[k]}</button>` };
+    return `<div class="w11-tb"><div class="tb-c"><button type="button" class="tb-start${S.start?' act':''}" data-a="start" data-w="start" title="Inicio" aria-label="Inicio"><svg viewBox="0 0 24 24">${[0,1,2].map(r=>[0,1,2].map(c=>`<circle cx="${6+c*6}" cy="${6+r*6}" r="2.1"/>`).join('')).join('')}</svg></button>
+      <button type="button" class="tb-search" data-a="start" title="Buscar"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg><span>Buscar</span></button>${app('explorer')}${app('notepad')}</div>
+      <div class="tb-r">${S.usb&&!S.ejected?`<button type="button" class="tb-usb" data-a="usbtray" title="Quitar hardware de forma segura">${WI.usb}</button>`:''}<svg class="tb-ic" viewBox="0 0 24 24"><path d="M3 9a13 13 0 0 1 18 0M6 12.5a8.5 8.5 0 0 1 12 0M9 16a4 4 0 0 1 6 0"/><circle cx="12" cy="19" r="1"/></svg><svg class="tb-ic" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6"/></svg><span class="tb-clock">${h}:${String(d.getMinutes()).padStart(2,'0')} ${ap}<br>${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}</span>
+      ${S.tray?`<div class="w11-pop tb-pop"><button type="button" data-a="eject">${WI.usb}Expulsar USB (E:)</button></div>`:''}</div></div>` }
+  function render(){
+    const P=S.phase;
+    if(P!=='desk'){ let inner='';
+      if(P==='off') inner=`<div class="w11-full off"><p>El equipo está apagado.</p><small>Presiona el botón de encendido ⏻ que está debajo de la pantalla.</small></div>`;
+      else if(P==='boot') inner=`<div class="w11-full boot"><div class="w11-spin"></div><p>Iniciando…</p></div>`;
+      else if(P==='busy') inner=`<div class="w11-full busy"><div class="w11-spin"></div><p>${S.busy}</p></div>`;
+      else if(P==='sleep') inner=`<button type="button" class="w11-full off" data-a="wake"><p>Suspendido</p><small>Toca la pantalla para continuar.</small></button>`;
+      else if(P==='login'){ const d=new Date(); inner=`<div class="w11-full login"><div class="lg-clock">${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')}</div><div class="lg-av">A</div><p class="lg-n">Alumno</p><p class="lg-s">${S.locked?'Equipo bloqueado':'Bienvenido'}</p><button type="button" class="lg-btn" data-a="login">Iniciar sesión</button></div>` }
+      scr.innerHTML=inner; syncUsb(); check(); return }
+    const desk=S.root.Escritorio.items;
+    scr.innerHTML=`<div class="w11-desk" data-ctx="desk">
+      <div class="dk-icons"><div class="w11-it dk" data-a="dk-pc" tabindex="0">${WI.pc}<span>Este equipo</span></div><div class="w11-it dk" data-a="dk-bin" tabindex="0">${WI.bin}<span>Papelera</span></div>${desk.map(it=>`<div class="w11-it dk${S.deskSel===it.id?' sel':''}" data-a="item" data-i="${it.id}" data-win="desk" data-type="${it.type}">${WI[it.type==='folder'?'folder':'txt']}${S.deskRen===it.id?`<input class="w11-ren" data-ren="${it.id}" value="${esc(it.name)}" aria-label="Nombre" autocomplete="off">`:`<span>${esc(it.name)}</span>`}</div>`).join('')}</div>
+      ${S.wins.map(winHTML).join('')}
+      ${S.notif?`<div class="w11-notif">${esc(S.notif)}</div>`:''}
+    </div>${startHTML()}${dlgHTML()}${taskbarHTML()}
+    ${S.menu?`<div class="w11-pop w11-ctx" style="left:${S.menu.x}px;top:${S.menu.y}px">${S.menu.opts.map(o=>o[0]==='-'?'<hr>':`<button type="button" data-a="ctx" data-op="${o[0]}">${o[1]}</button>`).join('')}</div>`:''}`;
+    const r=scr.querySelector('.w11-ren'); if(r && !demo){ r.focus(); r.select() }
+    const dn=scr.querySelector('[data-dname]'); if(dn && S.dlg && S.dlg.focus && !demo){ dn.focus(); dn.select(); S.dlg.focus=false }
+    syncUsb(); check();
+  }
+  function syncUsb(){ const b=$('#w11-usb'); b.classList.toggle('in',S.usb); $('#w11-usbt').textContent=S.usb?'Retirar memoria USB':'Conectar memoria USB' }
+
+  /* ----- acciones ----- */
+  function closeWin(w,force){ if(!force && w.app==='notepad' && w.dirty && w.text.trim()){ S.dlg={type:'confirm', win:w.id}; return }
+    S.wins=S.wins.filter(x=>x!==w); S.ev.close=true }
+  function openSave(w,closeAfter){ const name=w.file?w.file.name.replace(/\.txt$/i,''):'Sin título';
+    S.dlg={type:'save', win:w.id, path:(w.loc&&(w.loc[0]!=='USB'||S.usb))?w.loc.slice():['Documentos'], name, ren:null, closeAfter, focus:true}; w.fileMenu=false }
+  function doSave(w,path,name){ name=(name||'').trim(); if(!name){ say('Escribe un nombre para el archivo.'); return false }
+    if(/[\\/:*?"<>|]/.test(name)){ say('El nombre no puede llevar estos signos: \\ / : * ? " < > |'); return false }
+    if(!/\.txt$/i.test(name)) name+='.txt';
+    const f=resolve(path); let ex=f.items.find(x=>x.type==='txt'&&x.name.toLowerCase()===name.toLowerCase());
+    if(ex) ex.text=w.text; else { ex=T(name,w.text); f.items.push(ex) }
+    w.file={id:ex.id,name:ex.name}; w.loc=path.slice(); w.dirty=false;
+    if(w.text.trim()){ if(path[0]==='USB') S.ev.saveUsb=true; else S.ev.saveLocal=true }
+    notify(`Se guardó “${ex.name}” en ${pathLabel(path).join(' › ')}.`); return true }
+  function saveDirect(w){ w.fileMenu=false; if(!w.file||!w.loc){ openSave(w); return }
+    if(w.loc[0]==='USB' && !S.usb){ say('La memoria USB no está conectada. Elige otro lugar.'); openSave(w); return }
+    doSave(w,w.loc,w.file.name) }
+  function commitRename(v){ const id=S.deskRen||(S.wins.find(w=>w.ren)||{}).ren||(S.dlg&&S.dlg.ren); if(!id) return;
+    const [par,it]=findAny(id); S.deskRen=null; S.wins.forEach(w=>{ if(w.ren===id) w.ren=null }); if(S.dlg) S.dlg.ren=null;
+    v=(v||'').trim(); if(it && v && v!==it.name){ if(par.items.some(x=>x!==it && x.name.toLowerCase()===v.toLowerCase())) say('Ya existe un elemento con ese nombre.'); else { it.name=v; say(`Nuevo nombre: “${v}”.`) } }
+    render() }
+  function transition(kind){ const lost=S.wins.some(w=>w.app==='notepad'&&w.dirty&&w.text.trim());
+    closePops(); S.dlg=null;
+    if(kind==='lock'){ S.phase='login'; S.locked=true; render(); return }
+    if(kind==='sleep'){ S.phase='sleep'; render(); return }
+    S.wins=[]; S.locked=false; S.after=kind;
+    S.phase='busy'; S.busy={signout:'Cerrando sesión…',restart:'Reiniciando…',shutdown:'Apagando…'}[kind]; render();
+    if(lost) say('Tenías un archivo sin guardar y se perdió. ¡Guarda antes de apagar, reiniciar o cerrar sesión!');
+    if(kind==='signout') later(1500,()=>{ S.phase='login'; S.ev.signout=true; render() });
+    if(kind==='restart') later(1700,()=>{ S.phase='boot'; render(); later(1600,()=>{ S.phase='login'; S.ev.restart=true; render() }) });
+    if(kind==='shutdown') later(1800,()=>{ S.phase='off'; S.ev.shut=true; render() }) }
+  function act(a,t,e){
+    const wc=t.closest('[data-win]'), wid=t.dataset.win||(wc&&wc.dataset.win), w=wid&&wid!=='dlg'&&wid!=='desk'?win(wid):null;
+    const keep={start:1,suser:1,spower:1,new:1,file:1,usbtray:1}[a];
+    if(!keep){ const m=S.menu; closePops(); S.menu=null; if(a==='ctx') S.menu=m }
+    switch(a){
+      case 'start': { const o=S.start; closePops(); S.start=!o; break }
+      case 'suser': S.sub=S.sub==='user'?null:'user'; break;
+      case 'spower': S.sub=S.sub==='power'?null:'power'; break;
+      case 'sapp': { const k=t.dataset.app; if(k==='explorer') openExplorer(['Documentos']); else if(k==='notepad') openNotepad(); else if(k==='web') notify('El simulador no tiene internet.'); else notify('Esta aplicación no está disponible en el simulador.'); break }
+      case 'signout': transition('signout'); return;
+      case 'restart': transition('restart'); return;
+      case 'shutdown': transition('shutdown'); return;
+      case 'lock': transition('lock'); return;
+      case 'sleep': transition('sleep'); return;
+      case 'wake': S.phase='login'; S.locked=true; break;
+      case 'login': if(S.after==='signout') S.ev.signin=true; S.after=null; S.phase='desk'; S.locked=false; break;
+      case 'tb': { const k=t.dataset.app, ws=S.wins.filter(x=>x.app===k).sort((p,q)=>q.z-p.z);
+        if(!ws.length){ k==='explorer'?openExplorer(['Documentos']):openNotepad(); break }
+        const x=ws[0]; if(x.min){ x.min=false; focusW(x); if(S.ev.min) S.ev.unmin=true } else if(top()===x){ x.min=true; S.ev.min=true } else focusW(x); break }
+      case 'min': w.min=true; S.ev.min=true; break;
+      case 'max': w.max=!w.max; focusW(w); if(w.max) S.ev.max=true; else if(S.ev.max) S.ev.unmax=true; break;
+      case 'close': closeWin(w); break;
+      case 'nav': w.path=[t.dataset.k]; w.sel=null; focusW(w); break;
+      case 'up': if(w.path.length>1) w.path.pop(); w.sel=null; break;
+      case 'new': { const o=w.newMenu; closePops(); w.newMenu=!o; focusW(w); break }
+      case 'new-folder': case 'new-txt': { const f=resolve(w.path); const it=a==='new-folder'?F(uniq(f.items,'Nueva carpeta')):T(uniq(f.items,'Nuevo documento de texto','.txt')); f.items.push(it); w.ren=it.id; w.sel=it.id; break }
+      case 'item': { if(wid==='desk'){ S.deskSel=t.dataset.i } else if(wid==='dlg'){ } else { w.sel=t.dataset.i; focusW(w) } break }
+      case 'file': { const o=w.fileMenu; closePops(); w.fileMenu=!o; focusW(w); break }
+      case 'save': saveDirect(w); break;
+      case 'saveas': openSave(w); break;
+      case 'dnav': S.dlg.path=[t.dataset.k]; break;
+      case 'dup': if(S.dlg.path.length>1) S.dlg.path.pop(); break;
+      case 'dnew': { const f=resolve(S.dlg.path), it=F(uniq(f.items,'Nueva carpeta')); f.items.push(it); S.dlg.ren=it.id; break }
+      case 'dsave': { const nm=scr.querySelector('[data-dname]'); const d=S.dlg, x=win(d.win); if(nm) d.name=nm.value;
+        if(x && doSave(x,d.path,d.name)){ S.dlg=null; if(d.closeAfter) closeWin(x,true) } break }
+      case 'dcancel': S.dlg=null; break;
+      case 'c-save': { const x=win(S.dlg.win); S.dlg=null; if(x.file&&x.loc&&(x.loc[0]!=='USB'||S.usb)){ doSave(x,x.loc,x.file.name); closeWin(x,true) } else openSave(x,true); break }
+      case 'c-no': { const x=win(S.dlg.win); S.dlg=null; closeWin(x,true); break }
+      case 'c-cancel': S.dlg=null; break;
+      case 'usbtray': { const o=S.tray; closePops(); S.tray=!o; break }
+      case 'eject': S.ejected=true; S.ev.eject=true; S.wins.forEach(x=>{ if(x.app==='explorer'&&x.path[0]==='USB') x.path=['Documentos'] }); notify('Es seguro quitar el hardware: ya puedes retirar la USB (E:).'); say('Ahora toca “Retirar memoria USB”.'); break;
+      case 'dk-pc': break;
+      case 'dk-bin': S.deskSel=null; break;
+      case 'ctx': { const m=S.menu; S.menu=null; runCtx(t.dataset.op,m); break }
+    }
+    render() }
+  function runCtx(op,m){ const w=m.win&&m.win!=='desk'?win(m.win):null, list=w?resolve(w.path).items:S.root.Escritorio.items;
+    if(op==='new-folder'||op==='new-txt'){ const it=op==='new-folder'?F(uniq(list,'Nueva carpeta')):T(uniq(list,'Nuevo documento de texto','.txt')); list.push(it); if(w){ w.ren=it.id; w.sel=it.id } else { S.deskRen=it.id; S.deskSel=it.id } }
+    if(op==='open') openItem(m.item,m.win);
+    if(op==='rename'){ if(w) w.ren=m.item; else S.deskRen=m.item }
+    if(op==='delete'){ const [par,it]=findAny(m.item); if(par){ par.items=par.items.filter(x=>x!==it); say(`“${it.name}” se envió a la Papelera.`) } }
+    if(op==='eject'){ S.ejected=true; S.ev.eject=true; S.wins.forEach(x=>{ if(x.app==='explorer'&&x.path[0]==='USB') x.path=['Documentos'] }); notify('Es seguro quitar el hardware: ya puedes retirar la USB (E:).') } }
+  function openItem(id,wid){ const [par,it]=findAny(id); if(!it) return; const w=wid&&wid!=='desk'?win(wid):null;
+    if(it.type==='folder'){ if(w){ w.path.push(id); w.sel=null } else openExplorer(['Escritorio',id]) }
+    else { let p=null; for(const k in S.root){ (function walk(f,pp){ if(f.items.includes(it)) p=pp; f.items.forEach(x=>{ if(x.type==='folder') walk(x,pp.concat(x.id)) }) })(S.root[k],[k]) } openNotepad(it,p) } }
+
+  scr.addEventListener('click',e=>{ if(e.target.closest('.w11-ren')) return; const t=e.target.closest('[data-a]');
+    if(!t){ if(e.target.closest('.w11-ren,[data-dname],.np-ta,.dlg')) return; const had=S.start||S.menu||S.tray||S.wins.some(w=>w.newMenu||w.fileMenu)||S.deskSel;
+      const ex=e.target.closest('.ex-content'); if(ex){ const w=win(ex.dataset.win); if(w&&w.sel){ w.sel=null; render(); return } }
+      const wEl=e.target.closest('.w11-win'); if(wEl){ const w=win(wEl.dataset.id); if(w&&top()!==w){ focusW(w); closePops(); render(); return } }
+      if(had){ closePops(); S.deskSel=null; render() } return }
+    act(t.dataset.a,t,e) });
+  scr.addEventListener('dblclick',e=>{ const t=e.target.closest('[data-a]'); if(!t || e.target.closest('.w11-ren')) return;
+    if(t.dataset.a==='dk-pc'){ openExplorer(['Documentos']); render(); return }
+    if(t.dataset.a==='dk-bin'){ notify('La Papelera está vacía.'); render(); return }
+    if(t.dataset.a==='item'){ const wid=t.dataset.win;
+      if(wid==='dlg'){ if(t.dataset.type==='folder'){ S.dlg.path.push(t.dataset.i); render() } else { S.dlg.name=t.querySelector('span').textContent.replace(/\.txt$/i,''); render() } return }
+      openItem(t.dataset.i,wid); render() } });
+  scr.addEventListener('contextmenu',e=>{ e.preventDefault(); if(S.phase!=='desk') return;
+    const r=scr.getBoundingClientRect(), x=Math.min(e.clientX-r.left, r.width-190), y=Math.min(e.clientY-r.top, r.height-150);
+    const it=e.target.closest('[data-a="item"]'), ex=e.target.closest('.ex-content'), nav=e.target.closest('[data-a="nav"][data-k="USB"]'), dk=e.target.closest('.w11-desk');
+    closePops();
+    if(nav && !S.ejected){ S.menu={x,y,opts:[['eject','Expulsar']]}; render(); return }
+    if(it && it.dataset.win!=='dlg'){ const wid=it.dataset.win; if(wid==='desk') S.deskSel=it.dataset.i; else { const w=win(wid); w.sel=it.dataset.i }
+      S.menu={x,y,win:wid,item:it.dataset.i,opts:[['open','Abrir'],['rename','Cambiar nombre'],['-'],['delete','Eliminar']]}; render(); return }
+    if(ex && ex.dataset.win!=='dlg'){ S.menu={x,y,win:ex.dataset.win,opts:[['new-folder','Nuevo → Carpeta'],['new-txt','Nuevo → Documento de texto']]}; render(); return }
+    if(dk && !e.target.closest('.w11-win')){ S.menu={x,y,win:'desk',opts:[['new-folder','Nuevo → Carpeta'],['new-txt','Nuevo → Documento de texto']]}; render(); return }
+    render() });
+  scr.addEventListener('input',e=>{ const ta=e.target.closest('.np-ta'); if(ta){ const w=win(ta.dataset.win); w.text=ta.value; if(!w.dirty){ w.dirty=true } const s=scr.querySelector(`.w11-win[data-id="${w.id}"] .w11-ttl span`); if(s) s.textContent=npTitle(w); return }
+    const dn=e.target.closest('[data-dname]'); if(dn && S.dlg) S.dlg.name=dn.value });
+  scr.addEventListener('keydown',e=>{
+    const rn=e.target.closest('.w11-ren'); if(rn){ e.stopPropagation(); if(e.key==='Enter'){ e.preventDefault(); commitRename(rn.value) } else if(e.key==='Escape'){ S.deskRen=null; S.wins.forEach(w=>w.ren=null); if(S.dlg) S.dlg.ren=null; render() } return }
+    const ta=e.target.closest('.np-ta'); if(ta && (e.ctrlKey||e.metaKey) && /^[sg]$/i.test(e.key)){ e.preventDefault(); saveDirect(win(ta.dataset.win)); render(); return }
+    if(e.target.closest('[data-dname]') && e.key==='Enter'){ e.preventDefault(); act('dsave',e.target,e); return }
+    if(e.key==='Escape' && (S.start||S.menu||S.tray)){ closePops(); render() } });
+  scr.addEventListener('focusout',e=>{ const rn=e.target.closest&&e.target.closest('.w11-ren'); if(rn && !demo) setTimeout(()=>{ if(document.contains(rn)) commitRename(rn.value) },0) });
+  // arrastrar ventanas
+  let drag=null;
+  scr.addEventListener('pointerdown',e=>{ const bar=e.target.closest('[data-drag]'); if(!bar || e.target.closest('button') || e.button!==0) return; const w=win(bar.dataset.drag); if(!w||w.max) return;
+    focusW(w); const el=bar.parentElement; el.style.zIndex=w.z; const r=scr.getBoundingClientRect(); drag={w,el,sx:e.clientX,sy:e.clientY,ox:w.x,oy:w.y,W:r.width,H:r.height}; bar.setPointerCapture(e.pointerId) });
+  scr.addEventListener('pointermove',e=>{ if(!drag) return; const {w,el}=drag; w.x=Math.max(-40,Math.min(90,drag.ox+(e.clientX-drag.sx)/drag.W*100)); w.y=Math.max(0,Math.min(80,drag.oy+(e.clientY-drag.sy)/drag.H*100)); el.style.left=w.x+'%'; el.style.top=w.y+'%' });
+  scr.addEventListener('pointerup',()=>{ drag=null });
+  $('#w11-usb').onclick=()=>{ if(!S.usb){ S.usb=true; S.ejected=false; if(S.phase==='desk') notify('USB (E:): se conectó una memoria USB.'); say('Memoria USB conectada. Ya aparece como USB (E:).') }
+    else { if(S.ejected){ if(S.ev.eject) S.ev.ejectOut=true; say('Retiraste la memoria de forma segura.',true) } else say('¡Cuidado! La retiraste sin expulsarla: los archivos que se estuvieran copiando podrían dañarse.');
+      S.usb=false; S.ejected=false; S.tray=false; S.wins.forEach(x=>{ if(x.app==='explorer'&&x.path[0]==='USB') x.path=['Documentos'] }); if(S.dlg&&S.dlg.path&&S.dlg.path[0]==='USB') S.dlg.path=['Documentos'] }
+    render() };
+  $('#w11-pwr').onclick=()=>{ if(S.phase==='off'){ S.phase='boot'; render(); later(1600,()=>{ S.phase='login'; if(S.ev.shut) S.ev.poweron=true; render() }) }
+    else if(S.phase==='desk') say('Para apagar el equipo usa Inicio → ⏻ → Apagar. Quitar la corriente puede dañar los archivos.') };
+
+  /* ----- misiones ----- */
+  function check(){ if(demo) return; const E=S.ev, docs=S.root.Documentos.items;
+    const ok=[E.min&&E.unmin, E.max&&E.unmax, E.close, docs.some(x=>x.type==='folder'&&norm(x.name)==='informatica'), E.saveLocal, E.saveUsb, E.eject&&E.ejectOut, E.signout&&E.signin, E.restart, E.shut&&E.poweron];
+    ok.forEach((v,i)=>{ if(v && !done.has(i)){ done.add(i); say(`¡Misión ${i+1} cumplida: ${W11_M[i][0]}!`,true) } });
+    const lis=$('#w11-list').querySelectorAll('li'); const nx=W11_M.findIndex((m,i)=>!done.has(i));
+    lis.forEach((li,i)=>{ li.classList.toggle('ok',done.has(i)); li.classList.toggle('cur',i===nx) });
+    $('#w11-score').className='fb ok'; $('#w11-score').textContent = done.size===W11_M.length?'¡Completaste las 10 misiones! Ya dominas lo básico de Windows.':`Misiones completadas: ${done.size} de ${W11_M.length}`; }
+
+  /* ----- demostraciones ----- */
+  const cur=$('#w11-cur'), block=$('#w11-block'), cap=$('#w11-cap');
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  async function waitFor(sel,ms){ const t0=Date.now(); while(Date.now()-t0<ms){ if(demo&&demo.stop) return null; const el=dev.querySelector(sel); if(el && el.getClientRects().length) return el; await sleep(120) } return null }
+  async function moveTo(el){ const d=dev.getBoundingClientRect(), r=el.getBoundingClientRect(); cur.style.left=(r.left-d.left+Math.min(r.width/2,60))+'px'; cur.style.top=(r.top-d.top+r.height/2)+'px'; await sleep(780) }
+  async function runDemo(i){ if(demo) return; demo={stop:false}; const steps=W11_DEMOS[i];
+    fresh(); block.hidden=false; cur.hidden=false; $('#w11-stop').hidden=false; box.querySelectorAll('.w11-demo').forEach(b=>b.disabled=true);
+    const d=dev.getBoundingClientRect(); cur.style.left=(d.width/2)+'px'; cur.style.top=(d.height/2)+'px';
+    dev.scrollIntoView({block:'nearest',behavior:'smooth'}); say('');
+    let n=0;
+    for(const st of steps){ if(demo.stop) break; n++; cap.innerHTML=`<b>Paso ${n} de ${steps.length}:</b> ${st.c}`; cap.classList.add('on');
+      const el=await waitFor(st.sel, st.timeout||3000); if(!el||demo.stop) break;
+      await moveTo(el); if(demo.stop) break;
+      const r=el.getBoundingClientRect(), o={bubbles:true,cancelable:true,view:window,clientX:r.left+Math.min(r.width/2,60),clientY:r.top+r.height/2};
+      cur.classList.remove('clic'); void cur.offsetWidth; cur.classList.add('clic');
+      if(st.act==='type'){ el.focus(); if(st.clear){ el.value=''; el.dispatchEvent(new Event('input',{bubbles:true})) } for(const ch of st.text){ if(demo.stop) break; el.value+=ch; el.dispatchEvent(new Event('input',{bubbles:true})); await sleep(75) } }
+      else if(st.act==='enter') el.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true,cancelable:true}));
+      else el.dispatchEvent(new MouseEvent('click',o));
+      await sleep(st.wait||700) }
+    const stopped=demo.stop;
+    cap.innerHTML=stopped?'Demostración detenida.':`<b>¡Así se hace!</b> Ahora inténtalo tú: misión ${i+1}, “${W11_M[i][0]}”.`;
+    await sleep(stopped?200:1500);
+    demo=null; cur.hidden=true; block.hidden=true; $('#w11-stop').hidden=true; box.querySelectorAll('.w11-demo').forEach(b=>b.disabled=false);
+    fresh(); say(stopped?'':'El simulador quedó listo para que practiques.') }
+  box.querySelector('#w11-list').addEventListener('click',e=>{ const b=e.target.closest('[data-demo]'); if(b) runDemo(+b.dataset.demo) });
+  $('#w11-stop').onclick=()=>{ if(demo) demo.stop=true };
+  $('#w11-reset').onclick=()=>{ if(demo) return; fresh(); say('Simulador reiniciado. Tus misiones cumplidas se conservan.') };
+  fresh();
+}
+{ const V=VIEWS.escritorio, old=V.summary, oldAfter=V.after;
+  V.summary=function(){ return w11HTML()+old.call(this) };
+  V.after=function(){ if(oldAfter) oldAfter(); w11Init() };
+  V.lead='Toca cada parte de la pantalla para saber para qué sirve. Abajo, practica en el simulador: guardar archivos, crear carpetas, usar la USB, manejar ventanas, cerrar sesión, reiniciar y apagar.'; }
 
 /* ---------- Menú y portada ---------- */
 const menu=$('#menu');
